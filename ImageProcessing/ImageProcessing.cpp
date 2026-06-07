@@ -1,8 +1,9 @@
-﻿// ImageProcessing.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
-//
-
-#include <iostream>
+﻿#include <iostream>
 #include <string>
+#include <vector>
+#include <filesystem>
+#include <algorithm>
+#include <cctype>
 #include "IniReader/INIReader.h"
 
 struct Config {
@@ -23,22 +24,43 @@ Config Parser()
     return cfg;
 }
 
+// Skanuje folder i zwraca wektor ścieżek do plików z rozszerzeniem .png
+std::vector<std::string> scanFolder(const std::string& folder)
+{
+    std::vector<std::string> result;
+    namespace fs = std::filesystem;
+    try {
+        if (!fs::exists(folder) || !fs::is_directory(folder))
+            return result;
+
+        for (const auto& entry : fs::recursive_directory_iterator(folder)) {
+            if (!entry.is_regular_file())
+                continue;
+            fs::path p = entry.path();
+            std::string ext = p.extension().string();
+            std::transform(ext.begin(), ext.end(), ext.begin(), [](unsigned char c){ return std::tolower(c); });
+            if (ext == ".png") {
+                result.push_back(p.string());
+            }
+        }
+    }
+    catch (const std::exception&) {
+        // w razie błędu zwracamy pustą listę
+    }
+    return result;
+}
+
 int main()
 {
     Config cfg = Parser();
     std::cout << "source = " << cfg.source << std::endl;
     std::cout << "output = " << cfg.output << std::endl;
     std::cout << "threads = " << cfg.threads << std::endl;
+
+    auto files = scanFolder(cfg.source);
+    for (const auto& f : files) {
+        std::cout << f << std::endl;
+    }
+
     return 0;
 }
-
-// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
-// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
-
-// Porady dotyczące rozpoczynania pracy:
-//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
-//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
-//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
-//   4. Użyj okna Lista błędów, aby zobaczyć błędy
-//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
-//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
