@@ -12,6 +12,13 @@
 #include <cmath>
 #include <opencv2/opencv.hpp>
 #include "IniReader/INIReader.h"
+#include <clocale>
+#ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#endif
 
 struct Config {
     std::string source;
@@ -108,9 +115,18 @@ int main()
 {
     // Odczyt konfiguracji
     Config cfg = Parser();
-    std::cout << "source = " << cfg.source << std::endl;
-    std::cout << "output = " << cfg.output << std::endl;
-    std::cout << "threads = " << cfg.threads << std::endl;
+    unsigned int actual_threads = cfg.threads > 0 ? static_cast<unsigned int>(cfg.threads) : std::thread::hardware_concurrency();
+    if (actual_threads == 0) actual_threads = 1;
+#ifdef _WIN32
+    // Ustawienie konsoli na UTF-8 aby poprawnie wyświetlać polskie znaki
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
+    std::setlocale(LC_ALL, "");
+    std::ios::sync_with_stdio(false);
+    std::cout << "ścieżka plików wejściowych: " << cfg.source << std::endl;
+    std::cout << "ścieżka plików wyjściowych: " << cfg.output << std::endl;
+    std::cout << "Przetwarzanie na " << actual_threads << " wątków" << std::endl;
 
     // Skanowanie katalogu źródłowego
     auto files = scanFolder(cfg.source);
@@ -125,8 +141,7 @@ int main()
     const size_t total = files.size();
 
     // Ustalenie liczby wątków
-    unsigned int num_threads = cfg.threads > 0 ? static_cast<unsigned int>(cfg.threads) : std::thread::hardware_concurrency();
-    if (num_threads == 0) num_threads = 1;
+    unsigned int num_threads = actual_threads;
 
     // Utworzenie katalogu output jeśli nie istnieje
     namespace fs = std::filesystem;
@@ -156,7 +171,7 @@ int main()
                 cv::Mat gray, edges;
                 cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
                 cv::GaussianBlur(gray, gray, cv::Size(5,5), 1.5);
-                cv::Canny(gray, edges, 50, 150);
+                cv::Canny(gray, edges, 30, 130);
 
                 fs::path inPath(task_path);
                 fs::path outPath = fs::path(cfg.output) / inPath.filename();
@@ -180,10 +195,10 @@ int main()
     // Monitor postępu
     std::thread monitor([&]{
         while (processed_count.load() < total) {
-            std::cout << "Postep: " << processed_count.load() << " / " << total << std::endl;
+            std::cout << "Postęp: " << processed_count.load() << " / " << total << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
-        std::cout << "Postep: " << processed_count.load() << " / " << total << " (zakonczono)" << std::endl;
+        std::cout << "Postęp: " << processed_count.load() << " / " << total << " (zakończono)" << std::endl;
     });
 
     // Czekamy na workerów
