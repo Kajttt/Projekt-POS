@@ -68,7 +68,7 @@ void createMosaic(const std::vector<std::string>& paths, const std::string& outF
     int mosaicW = cols * cellW;
     int mosaicH = rows * cellH;
 
-    cv::Mat mosaic(mosaicH, mosaicW, CV_8UC3, cv::Scalar(255,255,255));
+    cv::Mat mosaic(mosaicH, mosaicW, CV_8UC3, cv::Scalar(40,40,40));
 
     for (size_t i = 0; i < n; ++i) {
         cv::Mat img = cv::imread(paths[i], cv::IMREAD_UNCHANGED);
