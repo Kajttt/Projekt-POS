@@ -10,6 +10,10 @@
 #include <atomic>
 #include <chrono>
 #include <cmath>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+#include <opencv2/core/utils/logger.hpp>
 #include <opencv2/opencv.hpp>
 #include "IniReader/INIReader.h"
 #include <clocale>
@@ -113,28 +117,85 @@ void createMosaic(const std::vector<std::string>& paths, const std::string& outF
 
 int main()
 {
-    // Odczyt konfiguracji
-    Config cfg = Parser();
-    unsigned int actual_threads = cfg.threads > 0 ? static_cast<unsigned int>(cfg.threads) : std::thread::hardware_concurrency();
-    if (actual_threads == 0) actual_threads = 1;
+    // Sprawdź czy plik conf.ini istnieje
+    namespace fs = std::filesystem;
+    fs::path iniPath = "conf.ini";
+    if (!fs::exists(iniPath)) {
+        std::cerr << "Brak pliku conf.ini w katalogu programu. Zakonczono." << std::endl;
+        return 1;
+    }
+
+    // Odczyt konfiguracji i walidacja kluczy
+    INIReader reader(iniPath.string());
+    if (reader.ParseError() == -1) {
+        std::cerr << "Nie mozna otworzyc pliku conf.ini. Zakonczono." << std::endl;
+        return 1;
+    }
+    if (reader.ParseError() != 0) {
+        std::cerr << "Blad parsowania conf.ini: " << reader.ParseErrorMessage() << std::endl;
+        return 1;
+    }
+
+    std::vector<std::string> missing;
+    if (!reader.HasValue("", "source")) missing.push_back("source");
+    if (!reader.HasValue("", "output")) missing.push_back("output");
+    if (!reader.HasValue("", "threads")) missing.push_back("threads");
+    if (!missing.empty()) {
+        std::cerr << "Brakuje wpisow w conf.ini: ";
+        for (size_t i = 0; i < missing.size(); ++i) {
+            if (i) std::cerr << ", ";
+            std::cerr << missing[i];
+        }
+        std::cerr << ". Zakonczono." << std::endl;
+        return 1;
+    }
+
+    Config cfg;
+    cfg.source = reader.GetString("", "source", "");
+    cfg.output = reader.GetString("", "output", "");
+    cfg.threads = static_cast<int>(reader.GetInteger("", "threads", 0));
+
+    unsigned int hw_threads = std::thread::hardware_concurrency();
+    if (hw_threads == 0) hw_threads = 1; // fallback jeśli nieznane
+
+    unsigned int actual_threads = cfg.threads > 0 ? static_cast<unsigned int>(cfg.threads) : hw_threads;
+
+    // Ustawienie konsoli i locale przed jakimkolwiek wypisem
 #ifdef _WIN32
-    // Ustawienie konsoli na UTF-8 aby poprawnie wyświetlać polskie znaki
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 #endif
     std::setlocale(LC_ALL, "");
     std::ios::sync_with_stdio(false);
+
+    // Wyłącz logi informacyjne OpenCV
+    cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_ERROR);
+
+    // Jeżeli ustawiona liczba wątków przekracza dostępne zasoby, użyj maksimum i poinformuj
+    if (cfg.threads > 0 && hw_threads > 0 && static_cast<unsigned int>(cfg.threads) > hw_threads) {
+        std::cout << "Ustawiona liczba wątków (" << cfg.threads << ") przekracza ilość dostępnych zasobów, przetwarzanie na (" << hw_threads << ") wątków" << std::endl;
+        actual_threads = hw_threads;
+    }
+
     std::cout << "ścieżka plików wejściowych: " << cfg.source << std::endl;
     std::cout << "ścieżka plików wyjściowych: " << cfg.output << std::endl;
     std::cout << "Przetwarzanie na " << actual_threads << " wątków" << std::endl;
 
     // Skanowanie katalogu źródłowego
     auto files = scanFolder(cfg.source);
+    if (files.empty()) {
+        std::cerr << "Brak plikow PNG w katalogu wejściowym: " << cfg.source << ". Zakonczono." << std::endl;
+        return 1;
+    }
 
     // Przygotowanie kolejki zadań
     std::queue<std::string> tasks;
     for (const auto& f : files) tasks.push(f);
     std::mutex tasks_mutex;
+
+    // Lista uszkodzonych plików (wielowątkowa)
+    std::vector<std::string> corrupted_files;
+    std::mutex corrupted_mutex;
 
     // Atomiczny licznik postępu
     std::atomic<size_t> processed_count{0};
@@ -143,11 +204,59 @@ int main()
     // Ustalenie liczby wątków
     unsigned int num_threads = actual_threads;
 
-    // Utworzenie katalogu output jeśli nie istnieje
+    // Utworzenie katalogu output jeśli nie istnieje i obsługa niepustego katalogu
     namespace fs = std::filesystem;
+    fs::path outPath(cfg.output);
     try {
-        fs::create_directories(cfg.output);
-    } catch (...) {}
+        if (!fs::exists(outPath)) {
+            fs::create_directories(outPath);
+        } else if (!fs::is_directory(outPath)) {
+            std::cerr << "Ścieżka output istnieje i nie jest katalogiem: " << cfg.output << ". Zakonczono." << std::endl;
+            return 1;
+        } else {
+            // katalog istnieje — sprawdź czy pusty
+            bool empty = fs::is_empty(outPath);
+            if (!empty) {
+                std::cout << "Katalog output (" << cfg.output << ") nie jest pusty." << std::endl;
+                std::cout << "  (y) - usunac pliki z katalogu\n  (n) - utworzyc podkatalog w output i zapisac tam wyniki\n  (x) - przerwac" << std::endl;
+                std::cout << "Wybierz opcje [y/n/x]: ";
+                char choice = '\0';
+                std::cin >> choice;
+                // konsumuj reszte linii
+                std::string rest; std::getline(std::cin, rest);
+                choice = static_cast<char>(std::tolower(static_cast<unsigned char>(choice)));
+                if (choice == 'y') {
+                    // usuń wszystkie pliki/podkatalogi wewnątrz outPath
+                    for (auto& entry : fs::directory_iterator(outPath)) {
+                        try { fs::remove_all(entry.path()); } catch (...) {}
+                    }
+                    std::cout << "Katalog output wyczyszczony." << std::endl;
+                } else if (choice == 'n') {
+                    // utwórz podkatalog timestamp
+                    auto now = std::chrono::system_clock::now();
+                    std::time_t t = std::chrono::system_clock::to_time_t(now);
+                    std::tm tm{};
+#ifdef _WIN32
+                    localtime_s(&tm, &t);
+#else
+                    localtime_r(&t, &tm);
+#endif
+                    std::ostringstream ss;
+                    ss << std::put_time(&tm, "%Y%m%d_%H%M%S");
+                    fs::path sub = outPath / ss.str();
+                    try { fs::create_directories(sub); cfg.output = sub.string(); }
+                    catch (...) { std::cerr << "Nie mozna utworzyc podkatalogu: " << sub.string() << std::endl; return 1; }
+                    std::cout << "Utworzono podkatalog: " << cfg.output << std::endl;
+                } else {
+                    std::cout << "Przerwano." << std::endl;
+                    return 1;
+                }
+            }
+        }
+    } catch (const std::exception& ex) {
+        std::cerr << "Blad przy przygotowaniu katalogu output: " << ex.what() << std::endl;
+        return 1;
+    }
 
     // Worker: pobiera ścieżkę z kolejki, przetwarza obraz i zapisuje wynik
     auto worker = [&](unsigned int id){
@@ -163,7 +272,10 @@ int main()
             try {
                 cv::Mat img = cv::imread(task_path, cv::IMREAD_COLOR);
                 if (img.empty()) {
-                    std::cerr << "[worker " << id << "] nie mozna wczytac: " << task_path << std::endl;
+                    {
+                        std::lock_guard<std::mutex> lock(corrupted_mutex);
+                        corrupted_files.push_back(std::filesystem::path(task_path).filename().string());
+                    }
                     processed_count.fetch_add(1);
                     continue;
                 }
@@ -218,5 +330,15 @@ int main()
 
     std::cout << "Wszystkie zadania wykonane." << std::endl;
     std::cout << "Mozaiki zapisane: " << mosaicIn << " , " << mosaicOut << std::endl;
+
+    if (!corrupted_files.empty()) {
+        std::cout << "Znaleziono " << corrupted_files.size() << " uszkodzonych obrazów: ";
+        for (size_t i = 0; i < corrupted_files.size(); ++i) {
+            if (i) std::cout << ", ";
+            std::cout << corrupted_files[i];
+        }
+        std::cout << std::endl;
+    }
+
     return 0;
 }
