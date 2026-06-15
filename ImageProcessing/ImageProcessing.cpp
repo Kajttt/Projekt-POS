@@ -280,6 +280,22 @@ int main()
                     continue;
                 }
 
+                // --- create and save small thumbnails to speed up later mosaic creation ---
+                try {
+                    namespace fs = std::filesystem;
+                    fs::path inPathThumb(task_path);
+                    std::string stem = inPathThumb.stem().string();
+                    fs::path thumbIn = fs::path(cfg.output) / (stem + ".thumb_in.png");
+                    if (!fs::exists(thumbIn)) {
+                        cv::Mat thumb;
+                        double scale = std::min(200.0 / img.cols, 200.0 / img.rows);
+                        int newW = std::max(1, static_cast<int>(img.cols * scale));
+                        int newH = std::max(1, static_cast<int>(img.rows * scale));
+                        cv::resize(img, thumb, cv::Size(newW, newH), 0, 0, cv::INTER_AREA);
+                        try { cv::imwrite(thumbIn.string(), thumb); } catch(...) {}
+                    }
+                } catch(...) {}
+
                 cv::Mat gray, edges;
                 cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
                 cv::GaussianBlur(gray, gray, cv::Size(5,5), 1.5);
@@ -289,6 +305,22 @@ int main()
                 fs::path outPath = fs::path(cfg.output) / inPath.filename();
                 // Zapisz jako PNG (edges to pojedynczy kanał) - cv::imwrite wykryje format po rozszerzeniu
                 cv::imwrite(outPath.string(), edges);
+
+                // create and save thumbnail of the output (edges) to speed mosaic creation
+                try {
+                    namespace fs = std::filesystem;
+                    std::string stemOut = outPath.stem().string();
+                    fs::path thumbOut = fs::path(cfg.output) / (stemOut + ".thumb_out.png");
+                    if (!fs::exists(thumbOut)) {
+                        cv::Mat thumbEdges;
+                        // edges is single-channel; resize and save (create small image)
+                        double scaleOut = std::min(200.0 / std::max(1, edges.cols), 200.0 / std::max(1, edges.rows));
+                        int newWout = std::max(1, static_cast<int>(edges.cols * scaleOut));
+                        int newHout = std::max(1, static_cast<int>(edges.rows * scaleOut));
+                        cv::resize(edges, thumbEdges, cv::Size(newWout, newHout), 0, 0, cv::INTER_AREA);
+                        try { cv::imwrite(thumbOut.string(), thumbEdges); } catch(...) {}
+                    }
+                } catch(...) {}
             }
             catch (const std::exception& ex) {
                 std::cerr << "[worker " << id << "] blad przetwarzania " << task_path << ": " << ex.what() << std::endl;
@@ -325,8 +357,25 @@ int main()
     std::string mosaicIn = (fs::path(cfg.output) / "mosaic_input.png").string();
     std::string mosaicOut = (fs::path(cfg.output) / "mosaic_output.png").string();
 
-    createMosaic(files, mosaicIn, cellW, cellH);
-    createMosaic(outputFiles, mosaicOut, cellW, cellH);
+    // Prefer thumbnails when creating mosaics to avoid decoding full-size images again
+    std::vector<std::string> thumbInputPaths;
+    for (const auto& f : files) {
+        fs::path p(f);
+        fs::path thumb = fs::path(cfg.output) / (p.stem().string() + ".thumb_in.png");
+        if (fs::exists(thumb)) thumbInputPaths.push_back(thumb.string());
+        else thumbInputPaths.push_back(f);
+    }
+
+    std::vector<std::string> thumbOutputPaths;
+    for (const auto& f : outputFiles) {
+        fs::path p(f);
+        fs::path thumb = fs::path(cfg.output) / (p.stem().string() + ".thumb_out.png");
+        if (fs::exists(thumb)) thumbOutputPaths.push_back(thumb.string());
+        else thumbOutputPaths.push_back(f);
+    }
+
+    createMosaic(thumbInputPaths, mosaicIn, cellW, cellH);
+    createMosaic(thumbOutputPaths, mosaicOut, cellW, cellH);
 
     std::cout << "Wszystkie zadania wykonane." << std::endl;
     std::cout << "Mozaiki zapisane: " << mosaicIn << " , " << mosaicOut << std::endl;
