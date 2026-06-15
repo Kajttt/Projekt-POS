@@ -125,7 +125,7 @@ int main()
         return 1;
     }
 
-    // Odczyt konfiguracji i walidacja kluczy
+    // Odczyt konfiguracji i walidacja danych
     INIReader reader(iniPath.string());
     if (reader.ParseError() == -1) {
         std::cerr << "Nie mozna otworzyc pliku conf.ini. Zakonczono." << std::endl;
@@ -156,11 +156,11 @@ int main()
     cfg.threads = static_cast<int>(reader.GetInteger("", "threads", 0));
 
     unsigned int hw_threads = std::thread::hardware_concurrency();
-    if (hw_threads == 0) hw_threads = 1; // fallback jeśli nieznane
+    if (hw_threads == 0) hw_threads = 1; //jeśli nieznane to 1
 
     unsigned int actual_threads = cfg.threads > 0 ? static_cast<unsigned int>(cfg.threads) : hw_threads;
 
-    // Ustawienie konsoli i locale przed jakimkolwiek wypisem
+    // Ustawienie konsoli i locale przed jakimkolwiek wypisem dla polskich znaków
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
@@ -350,7 +350,18 @@ int main()
     if (monitor.joinable()) monitor.join();
 
     // Po przetworzeniu stwórz mozaiki: z oryginalnych obrazów i z obrazów wyjściowych
-    std::vector<std::string> outputFiles = scanFolder(cfg.output);
+    std::vector<std::string> outputFilesAll = scanFolder(cfg.output);
+    // Filtruj pliki output, pomijając miniatury i same mozaiki
+    std::vector<std::string> outputFiles;
+    for (const auto& f : outputFilesAll) {
+        fs::path p(f);
+        std::string name = p.filename().string();
+        if (name.find(".thumb_in.png") != std::string::npos) continue;
+        if (name.find(".thumb_out.png") != std::string::npos) continue;
+        if (name == "mosaic_input.png" || name == "mosaic_output.png") continue;
+        outputFiles.push_back(f);
+    }
+
     // Zachowaj ten sam rozmiar komórki dla obu mozaik
     int cellW = 200;
     int cellH = 200;
@@ -379,6 +390,21 @@ int main()
 
     std::cout << "Wszystkie zadania wykonane." << std::endl;
     std::cout << "Mozaiki zapisane: " << mosaicIn << " , " << mosaicOut << std::endl;
+
+    // Usuń miniatury (.thumb_in.png i .thumb_out.png) utworzone w katalogu output
+    try {
+        int removedThumbs = 0;
+        for (const auto& entry : fs::directory_iterator(cfg.output)) {
+            try {
+                if (!entry.is_regular_file()) continue;
+                std::string fname = entry.path().filename().string();
+                if (fname.find(".thumb_in.png") != std::string::npos || fname.find(".thumb_out.png") != std::string::npos) {
+                    try { fs::remove(entry.path()); removedThumbs++; } catch(...) {}
+                }
+            } catch(...) {}
+        }
+        if (removedThumbs > 0) std::cout << "Usunieto miniatury (" << removedThumbs << ")" << std::endl;
+    } catch(...) {}
 
     if (!corrupted_files.empty()) {
         std::cout << "Znaleziono " << corrupted_files.size() << " uszkodzonych obrazów: ";
