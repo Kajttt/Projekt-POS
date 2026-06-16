@@ -308,16 +308,6 @@ int main()
                         int newW = std::max(1, static_cast<int>(img.cols * scale));
                         int newH = std::max(1, static_cast<int>(img.rows * scale));
                         cv::resize(img, thumb, cv::Size(newW, newH), 0, 0, cv::INTER_AREA);
-                        // Konwersja miniatury do odcieni szarości i binarizacja (brak odcieni szarości)
-                        try {
-                            cv::Mat thumbGray;
-                            cv::cvtColor(thumb, thumbGray, cv::COLOR_BGR2GRAY);
-                            cv::Mat thumbBin;
-                            cv::threshold(thumbGray, thumbBin, 0, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
-                            try { cv::imwrite(thumbIn.string(), thumbBin); } catch(...) {}
-                        } catch(...) {
-                            try { cv::imwrite(thumbIn.string(), thumb); } catch(...) {}
-                        }
                     }
                 } catch(...) {}
 
