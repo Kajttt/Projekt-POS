@@ -292,8 +292,8 @@ int main()
                         int newW = std::max(1, static_cast<int>(img.cols * scale));
                         int newH = std::max(1, static_cast<int>(img.rows * scale));
                         cv::resize(img, thumb, cv::Size(newW, newH), 0, 0, cv::INTER_AREA);
-                        try { cv::imwrite(thumbIn.string(), thumb); } catch(...) {}
-                    }
+                            try { cv::imwrite(thumbIn.string(), thumb); } catch(...) {}
+                        }
                 } catch(...) {}
 
                 cv::Mat gray, edges;
@@ -318,7 +318,14 @@ int main()
                         int newWout = std::max(1, static_cast<int>(edges.cols * scaleOut));
                         int newHout = std::max(1, static_cast<int>(edges.rows * scaleOut));
                         cv::resize(edges, thumbEdges, cv::Size(newWout, newHout), 0, 0, cv::INTER_AREA);
-                        try { cv::imwrite(thumbOut.string(), thumbEdges); } catch(...) {}
+                        // Binarize to remove gray caused by resizing interpolation
+                        try {
+                            cv::Mat thumbBin;
+                            cv::threshold(thumbEdges, thumbBin, 0, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
+                            try { cv::imwrite(thumbOut.string(), thumbBin); } catch(...) {}
+                        } catch(...) {
+                            try { cv::imwrite(thumbOut.string(), thumbEdges); } catch(...) {}
+                        }
                     }
                 } catch(...) {}
             }
