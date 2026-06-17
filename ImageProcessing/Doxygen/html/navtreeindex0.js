@@ -1,0 +1,21 @@
+var NAVTREEINDEX0 =
+{
+"_image_processing_8cpp.html":[1,0,0],
+"_image_processing_8cpp.html#a3a7d95a9ee9b7d0890c9ca91dfe1141e":[1,0,0,3],
+"_image_processing_8cpp.html#a4d42352775ccf095bf4e335d5ce2349b":[1,0,0,1],
+"_image_processing_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4":[1,0,0,2],
+"_image_processing_8cpp.html#ae9de21a3908d84f8cd87f0e13ab30a0e":[1,0,0,4],
+"annotated.html":[0,0],
+"classes.html":[0,1],
+"files.html":[1,0],
+"functions.html":[0,2,0],
+"functions_vars.html":[0,2,1],
+"globals.html":[1,1,0],
+"globals_func.html":[1,1,1],
+"index.html":[],
+"pages.html":[],
+"struct_config.html":[0,0,0],
+"struct_config.html#aa4dc57b5a64a27bfe334706874a82fb6":[0,0,0,1],
+"struct_config.html#acca8518fb474236ff23870135c29d73d":[0,0,0,2],
+"struct_config.html#afa24ee7ab37585d4cc325cb77180eba4":[0,0,0,0]
+};

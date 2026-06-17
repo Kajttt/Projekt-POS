@@ -1,0 +1,125 @@
+\doxysection{D:\+/\+\+POS/\+\+Image\+Processing/\+\+Image\+Processing/\+\+Image\+Processing.cpp File Reference}
+\hypertarget{_image_processing_8cpp}{}\label{_image_processing_8cpp}\index{D:/POS/ImageProcessing/ImageProcessing/ImageProcessing.cpp@{D:/POS/ImageProcessing/ImageProcessing/ImageProcessing.cpp}}
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include $<$filesystem$>$}\newline
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$cctype$>$}\newline
+{\ttfamily \+\#include $<$thread$>$}\newline
+{\ttfamily \+\#include $<$mutex$>$}\newline
+{\ttfamily \+\#include $<$queue$>$}\newline
+{\ttfamily \+\#include $<$atomic$>$}\newline
+{\ttfamily \+\#include $<$chrono$>$}\newline
+{\ttfamily \+\#include $<$cmath$>$}\newline
+{\ttfamily \+\#include $<$ctime$>$}\newline
+{\ttfamily \+\#include $<$iomanip$>$}\newline
+{\ttfamily \+\#include $<$sstream$>$}\newline
+{\ttfamily \+\#include $<$opencv2/\+core/\+utils/\+logger.\+hpp$>$}\newline
+{\ttfamily \+\#include $<$opencv2/\+opencv.\+hpp$>$}\newline
+{\ttfamily \+\#include "{}Ini\+Reader/\+\+INIReader.\+h"{}}\newline
+{\ttfamily \+\#include $<$clocale$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_config}{Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_config}{Config}} \doxymbox{\hyperlink{_image_processing_8cpp_a3a7d95a9ee9b7d0890c9ca91dfe1141e}{Parser}} ()
+\item 
+std::\+vector$<$ std::\+string $>$ \doxymbox{\hyperlink{_image_processing_8cpp_ae9de21a3908d84f8cd87f0e13ab30a0e}{scan\+Folder}} (const std::\+string \&folder)
+\item 
+void \doxymbox{\hyperlink{_image_processing_8cpp_a4d42352775ccf095bf4e335d5ce2349b}{create\+Mosaic}} (const std::\+vector$<$ std::\+string $>$ \&paths, const std::\+string \&out\+File, int cellW=200, int cellH=200)
+\item 
+int \doxymbox{\hyperlink{_image_processing_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\label{_image_processing_8cpp_doc-func-members}
+\Hypertarget{_image_processing_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_image_processing_8cpp_a4d42352775ccf095bf4e335d5ce2349b}\index{ImageProcessing.cpp@{ImageProcessing.cpp}!createMosaic@{createMosaic}}
+\index{createMosaic@{createMosaic}!ImageProcessing.cpp@{ImageProcessing.cpp}}
+\doxysubsubsection{\texorpdfstring{createMosaic()}{createMosaic()}}
+{\footnotesize\ttfamily \label{_image_processing_8cpp_a4d42352775ccf095bf4e335d5ce2349b} 
+void create\+Mosaic (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ std::\+string $>$ \&}]{paths}{, }\item[{const std::\+string \&}]{out\+File}{, }\item[{int}]{cellW}{ = {\ttfamily 200}, }\item[{int}]{cellH}{ = {\ttfamily 200}}\end{DoxyParamCaption})}
+
+Tworzy mozaikę z zestawu obrazów i zapisuje do out\+File Jeżeli nie ma obrazów do przetworzenia, kończymy funkcję
+
+Zakładamy, że mozaika będzie kwadratowa lub prostokątna, obliczamy liczbę wierszy i kolumn\Hypertarget{_image_processing_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{ImageProcessing.cpp@{ImageProcessing.cpp}!main@{main}}
+\index{main@{main}!ImageProcessing.cpp@{ImageProcessing.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_image_processing_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Sprawdź czy plik conf.\+ini istnieje; jeśli plik nie istnieje program zakończy działanie
+
+Odczyt konfiguracji i walidacja danych z pliku conf.\+ini Jeśli plik nie może być otwarty lub występuje błąd parsowania program się zakończy
+
+Sprawdź obecność wymaganych kluczy (source, output, threads); brakujące wypisz i zakończ
+
+Ustawienie konsoli i locale dla poprawnego wyświetlania polskich znaków
+
+Wyłącz logi informacyjne Open\+CV, pozostaw tylko błędy
+
+Dopasowanie liczby wątków:\+ jeśli w conf.\+ini jest więcej niż sprzęt obsługuje, ustaw na maksimum i poinformuj
+
+Skanowanie katalogu źródłowego i zebranie listy plików PNG do przetworzenia
+
+Przygotowanie kolejki zadań (ścieżki plików) oraz mutexu do bezpiecznego dostępu z wielu wątków
+
+Lista uszkodzonych plików (wielowątkowa)
+
+Utworzenie katalogu output jeśli nie istnieje. Jeśli istnieje i nie jest pusty, zaproponuj akcję użytkownikowi
+
+Katalog istnieje — sprawdź czy pusty
+
+Jeśli katalog nie jest pusty, zapytaj użytkownika:\+ wyczyścić, użyć podkatalogu z timestampem, lub przerwać
+
+konsumuj reszte linii wejścia
+
+Usuń wszystkie pliki i podkatalogi wewnątrz out\+Path
+
+Utwórz podkatalog z nazwą opartą na bieżącym czasie i ustaw go jako docelowy output
+
+Worker:\+ pobiera ścieżkę z kolejki, przetwarza obraz (detekcja krawędzi) i zapisuje wynik wraz z miniaturami
+
+Tworzenie miniatury oryginalnego obrazu (pure B/\+W) o maksymalnym wymiarze 200px, zapis do katalogu output
+
+Zapisz wynik (krawędzie) jako PNG; następnie utwórz miniaturę wyjściową i zapisz ją w formacie czarno-\/białym
+
+Tworzenie miniatury obrazu wynikowego (binarna) -\/ ułatwia późniejsze tworzenie mozaiki bez wczytywania pełnych plików
+
+Uruchomienie wątków workerów według ustalonej liczby num\+\_\+threads
+
+Monitor postępu:\+ w wątku drukuje liczbę przetworzonych plików co 500ms, aż wszystkie zostaną przetworzone
+
+Poczekaj na zakończenie wszystkich workerów i monitora
+
+Po przetworzeniu:\+ przygotuj listę plików wyjściowych do tworzenia mozaik (pomiń miniatury i pliki mozaik)
+
+Filtruj pliki output, pomijając miniatury i pliki mozaik
+
+Preferuj miniatury przy tworzeniu mozaik, aby nie dekodować pełnych obrazów ponownie
+
+Usuń tymczasowe miniatury (.thumb\+\_\+in.\+png i .thumb\+\_\+out.\+png) utworzone w katalogu output aby pozostawić tylko finalne pliki\Hypertarget{_image_processing_8cpp_a3a7d95a9ee9b7d0890c9ca91dfe1141e}\index{ImageProcessing.cpp@{ImageProcessing.cpp}!Parser@{Parser}}
+\index{Parser@{Parser}!ImageProcessing.cpp@{ImageProcessing.cpp}}
+\doxysubsubsection{\texorpdfstring{Parser()}{Parser()}}
+{\footnotesize\ttfamily \label{_image_processing_8cpp_a3a7d95a9ee9b7d0890c9ca91dfe1141e} 
+\doxymbox{\hyperlink{struct_config}{Config}} Parser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Parser odczytuje plik conf.\+ini(ten sam katalog co program) i zwraca konfigurację Odczyt pliku ini za pomocą INIReader
+
+W przypadku braku wpisu w pliku ini, użyj wartości domyślnych
+
+Zwraca strukturę z konfiguracją\Hypertarget{_image_processing_8cpp_ae9de21a3908d84f8cd87f0e13ab30a0e}\index{ImageProcessing.cpp@{ImageProcessing.cpp}!scanFolder@{scanFolder}}
+\index{scanFolder@{scanFolder}!ImageProcessing.cpp@{ImageProcessing.cpp}}
+\doxysubsubsection{\texorpdfstring{scanFolder()}{scanFolder()}}
+{\footnotesize\ttfamily \label{_image_processing_8cpp_ae9de21a3908d84f8cd87f0e13ab30a0e} 
+std::\+vector$<$ std::\+string $>$ scan\+Folder (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{folder}{}\end{DoxyParamCaption})}
+
+Skanuje folder i zwraca wektor ścieżek do plików z rozszerzeniem.\+png szuka plików PNG w katalogu i podkatalogach
+
+w razie błędu zwracamy pustą listę

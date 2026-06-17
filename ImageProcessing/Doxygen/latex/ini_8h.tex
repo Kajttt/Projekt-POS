@@ -1,0 +1,203 @@
+\doxysection{D:\+/\+\+POS/\+\+Image\+Processing/\+\+Image\+Processing/\+\+Ini\+Reader/\+ini.h File Reference}
+\hypertarget{ini_8h}{}\label{ini_8h}\index{D:/POS/ImageProcessing/ImageProcessing/IniReader/ini.h@{D:/POS/ImageProcessing/ImageProcessing/IniReader/ini.h}}
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a1b9ae2ea08de2b455f0db240a9385afe}{INI\+\_\+\+HANDLER\+\_\+\+LINENO}}~0
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}}
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_ad0f757e985620449b325e2023ee21275}{INI\+\_\+\+ALLOW\+\_\+\+MULTILINE}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_ac7397d484a14bb9007527edd0b66e38c}{INI\+\_\+\+ALLOW\+\_\+\+BOM}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a94fd267a11de14467754cd87e51a9f28}{INI\+\_\+\+START\+\_\+\+COMMENT\+\_\+\+PREFIXES}}~"{};\+\#"{}
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a9443b06de7678499c7b68148359e8fe0}{INI\+\_\+\+ALLOW\+\_\+\+INLINE\+\_\+\+COMMENTS}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a327d5a588a6a54129f768fc8dcc6f115}{INI\+\_\+\+INLINE\+\_\+\+COMMENT\+\_\+\+PREFIXES}}~"{};"{}
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a2a6d4557273d55fd770d40c690094aa1}{INI\+\_\+\+USE\+\_\+\+STACK}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a5c067971ef2b8e9d35b716dd773eb1bf}{INI\+\_\+\+MAX\+\_\+\+LINE}}~200
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_ae12f79b788d1181024f0aabe6f444b36}{INI\+\_\+\+ALLOW\+\_\+\+REALLOC}}~0
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_ad8a81c44a7c94dc99dab9004e93670da}{INI\+\_\+\+INITIAL\+\_\+\+ALLOC}}~200
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a197006c50f50af690746459a73de14a3}{INI\+\_\+\+STOP\+\_\+\+ON\+\_\+\+FIRST\+\_\+\+ERROR}}~0
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a2c317b97113ce38a664e34261a57ae17}{INI\+\_\+\+CALL\+\_\+\+HANDLER\+\_\+\+ON\+\_\+\+NEW\+\_\+\+SECTION}}~0
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a6a99e3ce94f611bee3c538fdd25d4c39}{INI\+\_\+\+ALLOW\+\_\+\+NO\+\_\+\+VALUE}}~0
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8h_a60046718f0606edf8c78e3a949b5b475}{INI\+\_\+\+CUSTOM\+\_\+\+ALLOCATOR}}~0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}) (void \texorpdfstring{$\ast$}{*}user, const char \texorpdfstring{$\ast$}{*}section, const char \texorpdfstring{$\ast$}{*}name, const char \texorpdfstring{$\ast$}{*}value)
+\item 
+typedef char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab}{ini\+\_\+reader}}) (char \texorpdfstring{$\ast$}{*}str, int num, void \texorpdfstring{$\ast$}{*}stream)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int \doxymbox{\hyperlink{ini_8h_adc6bd549113c458cfb7ca51d9590c222}{ini\+\_\+parse}} (const char \texorpdfstring{$\ast$}{*}filename, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int \doxymbox{\hyperlink{ini_8h_ab342d928128ec27efdf5d597a793688e}{ini\+\_\+parse\+\_\+file}} (FILE \texorpdfstring{$\ast$}{*}file, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int \doxymbox{\hyperlink{ini_8h_a443b481927eadbc1939a567a0439b95b}{ini\+\_\+parse\+\_\+stream}} (\doxymbox{\hyperlink{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab}{ini\+\_\+reader}} reader, void \texorpdfstring{$\ast$}{*}stream, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int \doxymbox{\hyperlink{ini_8h_a74f4769cbc69ed7b32c1e3c488923c91}{ini\+\_\+parse\+\_\+string}} (const char \texorpdfstring{$\ast$}{*}string, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int \doxymbox{\hyperlink{ini_8h_aa8e84569ac722c3a9aa8dad66ba53bee}{ini\+\_\+parse\+\_\+string\+\_\+length}} (const char \texorpdfstring{$\ast$}{*}string, size\+\_\+t length, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\end{DoxyCompactItemize}
+
+
+\label{ini_8h_doc-define-members}
+\Hypertarget{ini_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ini_8h_ac7397d484a14bb9007527edd0b66e38c}\index{ini.h@{ini.h}!INI\_ALLOW\_BOM@{INI\_ALLOW\_BOM}}
+\index{INI\_ALLOW\_BOM@{INI\_ALLOW\_BOM}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_ALLOW\_BOM}{INI\_ALLOW\_BOM}}
+{\footnotesize\ttfamily \label{ini_8h_ac7397d484a14bb9007527edd0b66e38c} 
+\+\#define INI\+\_\+\+ALLOW\+\_\+\+BOM~1}
+
+\Hypertarget{ini_8h_a9443b06de7678499c7b68148359e8fe0}\index{ini.h@{ini.h}!INI\_ALLOW\_INLINE\_COMMENTS@{INI\_ALLOW\_INLINE\_COMMENTS}}
+\index{INI\_ALLOW\_INLINE\_COMMENTS@{INI\_ALLOW\_INLINE\_COMMENTS}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_ALLOW\_INLINE\_COMMENTS}{INI\_ALLOW\_INLINE\_COMMENTS}}
+{\footnotesize\ttfamily \label{ini_8h_a9443b06de7678499c7b68148359e8fe0} 
+\+\#define INI\+\_\+\+ALLOW\+\_\+\+INLINE\+\_\+\+COMMENTS~1}
+
+\Hypertarget{ini_8h_ad0f757e985620449b325e2023ee21275}\index{ini.h@{ini.h}!INI\_ALLOW\_MULTILINE@{INI\_ALLOW\_MULTILINE}}
+\index{INI\_ALLOW\_MULTILINE@{INI\_ALLOW\_MULTILINE}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_ALLOW\_MULTILINE}{INI\_ALLOW\_MULTILINE}}
+{\footnotesize\ttfamily \label{ini_8h_ad0f757e985620449b325e2023ee21275} 
+\+\#define INI\+\_\+\+ALLOW\+\_\+\+MULTILINE~1}
+
+\Hypertarget{ini_8h_a6a99e3ce94f611bee3c538fdd25d4c39}\index{ini.h@{ini.h}!INI\_ALLOW\_NO\_VALUE@{INI\_ALLOW\_NO\_VALUE}}
+\index{INI\_ALLOW\_NO\_VALUE@{INI\_ALLOW\_NO\_VALUE}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_ALLOW\_NO\_VALUE}{INI\_ALLOW\_NO\_VALUE}}
+{\footnotesize\ttfamily \label{ini_8h_a6a99e3ce94f611bee3c538fdd25d4c39} 
+\+\#define INI\+\_\+\+ALLOW\+\_\+\+NO\+\_\+\+VALUE~0}
+
+\Hypertarget{ini_8h_ae12f79b788d1181024f0aabe6f444b36}\index{ini.h@{ini.h}!INI\_ALLOW\_REALLOC@{INI\_ALLOW\_REALLOC}}
+\index{INI\_ALLOW\_REALLOC@{INI\_ALLOW\_REALLOC}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_ALLOW\_REALLOC}{INI\_ALLOW\_REALLOC}}
+{\footnotesize\ttfamily \label{ini_8h_ae12f79b788d1181024f0aabe6f444b36} 
+\+\#define INI\+\_\+\+ALLOW\+\_\+\+REALLOC~0}
+
+\Hypertarget{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}\index{ini.h@{ini.h}!INI\_API@{INI\_API}}
+\index{INI\_API@{INI\_API}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_API}{INI\_API}}
+{\footnotesize\ttfamily \label{ini_8h_a100f9833a46f9c2b9dac0247876eb71b} 
+\+\#define INI\+\_\+\+API}
+
+\Hypertarget{ini_8h_a2c317b97113ce38a664e34261a57ae17}\index{ini.h@{ini.h}!INI\_CALL\_HANDLER\_ON\_NEW\_SECTION@{INI\_CALL\_HANDLER\_ON\_NEW\_SECTION}}
+\index{INI\_CALL\_HANDLER\_ON\_NEW\_SECTION@{INI\_CALL\_HANDLER\_ON\_NEW\_SECTION}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_CALL\_HANDLER\_ON\_NEW\_SECTION}{INI\_CALL\_HANDLER\_ON\_NEW\_SECTION}}
+{\footnotesize\ttfamily \label{ini_8h_a2c317b97113ce38a664e34261a57ae17} 
+\+\#define INI\+\_\+\+CALL\+\_\+\+HANDLER\+\_\+\+ON\+\_\+\+NEW\+\_\+\+SECTION~0}
+
+\Hypertarget{ini_8h_a60046718f0606edf8c78e3a949b5b475}\index{ini.h@{ini.h}!INI\_CUSTOM\_ALLOCATOR@{INI\_CUSTOM\_ALLOCATOR}}
+\index{INI\_CUSTOM\_ALLOCATOR@{INI\_CUSTOM\_ALLOCATOR}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_CUSTOM\_ALLOCATOR}{INI\_CUSTOM\_ALLOCATOR}}
+{\footnotesize\ttfamily \label{ini_8h_a60046718f0606edf8c78e3a949b5b475} 
+\+\#define INI\+\_\+\+CUSTOM\+\_\+\+ALLOCATOR~0}
+
+\Hypertarget{ini_8h_a1b9ae2ea08de2b455f0db240a9385afe}\index{ini.h@{ini.h}!INI\_HANDLER\_LINENO@{INI\_HANDLER\_LINENO}}
+\index{INI\_HANDLER\_LINENO@{INI\_HANDLER\_LINENO}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_HANDLER\_LINENO}{INI\_HANDLER\_LINENO}}
+{\footnotesize\ttfamily \label{ini_8h_a1b9ae2ea08de2b455f0db240a9385afe} 
+\+\#define INI\+\_\+\+HANDLER\+\_\+\+LINENO~0}
+
+\Hypertarget{ini_8h_ad8a81c44a7c94dc99dab9004e93670da}\index{ini.h@{ini.h}!INI\_INITIAL\_ALLOC@{INI\_INITIAL\_ALLOC}}
+\index{INI\_INITIAL\_ALLOC@{INI\_INITIAL\_ALLOC}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_INITIAL\_ALLOC}{INI\_INITIAL\_ALLOC}}
+{\footnotesize\ttfamily \label{ini_8h_ad8a81c44a7c94dc99dab9004e93670da} 
+\+\#define INI\+\_\+\+INITIAL\+\_\+\+ALLOC~200}
+
+\Hypertarget{ini_8h_a327d5a588a6a54129f768fc8dcc6f115}\index{ini.h@{ini.h}!INI\_INLINE\_COMMENT\_PREFIXES@{INI\_INLINE\_COMMENT\_PREFIXES}}
+\index{INI\_INLINE\_COMMENT\_PREFIXES@{INI\_INLINE\_COMMENT\_PREFIXES}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_INLINE\_COMMENT\_PREFIXES}{INI\_INLINE\_COMMENT\_PREFIXES}}
+{\footnotesize\ttfamily \label{ini_8h_a327d5a588a6a54129f768fc8dcc6f115} 
+\+\#define INI\+\_\+\+INLINE\+\_\+\+COMMENT\+\_\+\+PREFIXES~"{};"{}}
+
+\Hypertarget{ini_8h_a5c067971ef2b8e9d35b716dd773eb1bf}\index{ini.h@{ini.h}!INI\_MAX\_LINE@{INI\_MAX\_LINE}}
+\index{INI\_MAX\_LINE@{INI\_MAX\_LINE}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_MAX\_LINE}{INI\_MAX\_LINE}}
+{\footnotesize\ttfamily \label{ini_8h_a5c067971ef2b8e9d35b716dd773eb1bf} 
+\+\#define INI\+\_\+\+MAX\+\_\+\+LINE~200}
+
+\Hypertarget{ini_8h_a94fd267a11de14467754cd87e51a9f28}\index{ini.h@{ini.h}!INI\_START\_COMMENT\_PREFIXES@{INI\_START\_COMMENT\_PREFIXES}}
+\index{INI\_START\_COMMENT\_PREFIXES@{INI\_START\_COMMENT\_PREFIXES}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_START\_COMMENT\_PREFIXES}{INI\_START\_COMMENT\_PREFIXES}}
+{\footnotesize\ttfamily \label{ini_8h_a94fd267a11de14467754cd87e51a9f28} 
+\+\#define INI\+\_\+\+START\+\_\+\+COMMENT\+\_\+\+PREFIXES~"{};\+\#"{}}
+
+\Hypertarget{ini_8h_a197006c50f50af690746459a73de14a3}\index{ini.h@{ini.h}!INI\_STOP\_ON\_FIRST\_ERROR@{INI\_STOP\_ON\_FIRST\_ERROR}}
+\index{INI\_STOP\_ON\_FIRST\_ERROR@{INI\_STOP\_ON\_FIRST\_ERROR}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_STOP\_ON\_FIRST\_ERROR}{INI\_STOP\_ON\_FIRST\_ERROR}}
+{\footnotesize\ttfamily \label{ini_8h_a197006c50f50af690746459a73de14a3} 
+\+\#define INI\+\_\+\+STOP\+\_\+\+ON\+\_\+\+FIRST\+\_\+\+ERROR~0}
+
+\Hypertarget{ini_8h_a2a6d4557273d55fd770d40c690094aa1}\index{ini.h@{ini.h}!INI\_USE\_STACK@{INI\_USE\_STACK}}
+\index{INI\_USE\_STACK@{INI\_USE\_STACK}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{INI\_USE\_STACK}{INI\_USE\_STACK}}
+{\footnotesize\ttfamily \label{ini_8h_a2a6d4557273d55fd770d40c690094aa1} 
+\+\#define INI\+\_\+\+USE\+\_\+\+STACK~1}
+
+
+
+\label{ini_8h_doc-typedef-members}
+\Hypertarget{ini_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{ini_8h_a7343d087975289e095471430150dbe59}\index{ini.h@{ini.h}!ini\_handler@{ini\_handler}}
+\index{ini\_handler@{ini\_handler}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{ini\_handler}{ini\_handler}}
+{\footnotesize\ttfamily \label{ini_8h_a7343d087975289e095471430150dbe59} 
+typedef int(\texorpdfstring{$\ast$}{*} ini\+\_\+handler) (void \texorpdfstring{$\ast$}{*}user, const char \texorpdfstring{$\ast$}{*}section, const char \texorpdfstring{$\ast$}{*}name, const char \texorpdfstring{$\ast$}{*}value)}
+
+\Hypertarget{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab}\index{ini.h@{ini.h}!ini\_reader@{ini\_reader}}
+\index{ini\_reader@{ini\_reader}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{ini\_reader}{ini\_reader}}
+{\footnotesize\ttfamily \label{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab} 
+typedef char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} ini\+\_\+reader) (char \texorpdfstring{$\ast$}{*}str, int num, void \texorpdfstring{$\ast$}{*}stream)}
+
+
+
+\label{ini_8h_doc-func-members}
+\Hypertarget{ini_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ini_8h_adc6bd549113c458cfb7ca51d9590c222}\index{ini.h@{ini.h}!ini\_parse@{ini\_parse}}
+\index{ini\_parse@{ini\_parse}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{ini\_parse()}{ini\_parse()}}
+{\footnotesize\ttfamily \label{ini_8h_adc6bd549113c458cfb7ca51d9590c222} 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int ini\+\_\+parse (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8h_ab342d928128ec27efdf5d597a793688e}\index{ini.h@{ini.h}!ini\_parse\_file@{ini\_parse\_file}}
+\index{ini\_parse\_file@{ini\_parse\_file}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_file()}{ini\_parse\_file()}}
+{\footnotesize\ttfamily \label{ini_8h_ab342d928128ec27efdf5d597a793688e} 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int ini\+\_\+parse\+\_\+file (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8h_a443b481927eadbc1939a567a0439b95b}\index{ini.h@{ini.h}!ini\_parse\_stream@{ini\_parse\_stream}}
+\index{ini\_parse\_stream@{ini\_parse\_stream}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_stream()}{ini\_parse\_stream()}}
+{\footnotesize\ttfamily \label{ini_8h_a443b481927eadbc1939a567a0439b95b} 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int ini\+\_\+parse\+\_\+stream (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab}{ini\+\_\+reader}}}]{reader}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{stream}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8h_a74f4769cbc69ed7b32c1e3c488923c91}\index{ini.h@{ini.h}!ini\_parse\_string@{ini\_parse\_string}}
+\index{ini\_parse\_string@{ini\_parse\_string}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_string()}{ini\_parse\_string()}}
+{\footnotesize\ttfamily \label{ini_8h_a74f4769cbc69ed7b32c1e3c488923c91} 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int ini\+\_\+parse\+\_\+string (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8h_aa8e84569ac722c3a9aa8dad66ba53bee}\index{ini.h@{ini.h}!ini\_parse\_string\_length@{ini\_parse\_string\_length}}
+\index{ini\_parse\_string\_length@{ini\_parse\_string\_length}!ini.h@{ini.h}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_string\_length()}{ini\_parse\_string\_length()}}
+{\footnotesize\ttfamily \label{ini_8h_aa8e84569ac722c3a9aa8dad66ba53bee} 
+\doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int ini\+\_\+parse\+\_\+string\+\_\+length (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{size\+\_\+t}]{length}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+

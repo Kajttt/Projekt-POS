@@ -1,0 +1,97 @@
+\doxysection{D:\+/\+\+POS/\+\+Image\+Processing/\+\+Image\+Processing/\+\+Ini\+Reader/\+ini.c File Reference}
+\hypertarget{ini_8c}{}\label{ini_8c}\index{D:/POS/ImageProcessing/ImageProcessing/IniReader/ini.c@{D:/POS/ImageProcessing/ImageProcessing/IniReader/ini.c}}
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$ctype.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$assert.\+h$>$}\newline
+{\ttfamily \+\#include "{}ini.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structini__parse__string__ctx}{ini\+\_\+parse\+\_\+string\+\_\+ctx}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8c_aaf452164719d4d290a4766282df9d690}{MAX\+\_\+\+SECTION}}~50
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8c_ac7c0207aa5a0e10d378be03b68041350}{MAX\+\_\+\+NAME}}~50
+\item 
+\+\#define \doxymbox{\hyperlink{ini_8c_a444c6b3051cdd942c99ba2e0fea3aa38}{HANDLER}}(u,  s,  n,  v)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{ini_8c_ad8b766ac18397b0b262559203ea7f602}{ini\+\_\+parse\+\_\+stream}} (\doxymbox{\hyperlink{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab}{ini\+\_\+reader}} reader, void \texorpdfstring{$\ast$}{*}stream, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+int \doxymbox{\hyperlink{ini_8c_a876bf8b62ade275320db827b929f9289}{ini\+\_\+parse\+\_\+file}} (FILE \texorpdfstring{$\ast$}{*}file, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+int \doxymbox{\hyperlink{ini_8c_a2fab292681265b7774e2a2885abb758c}{ini\+\_\+parse}} (const char \texorpdfstring{$\ast$}{*}filename, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+int \doxymbox{\hyperlink{ini_8c_aeb90a0b5e4226351899d28ead4eed6fa}{ini\+\_\+parse\+\_\+string}} (const char \texorpdfstring{$\ast$}{*}string, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\item 
+int \doxymbox{\hyperlink{ini_8c_a01ec9e2ebce98c43937108fc18b10301}{ini\+\_\+parse\+\_\+string\+\_\+length}} (const char \texorpdfstring{$\ast$}{*}string, size\+\_\+t length, \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}} handler, void \texorpdfstring{$\ast$}{*}user)
+\end{DoxyCompactItemize}
+
+
+\label{ini_8c_doc-define-members}
+\Hypertarget{ini_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ini_8c_a444c6b3051cdd942c99ba2e0fea3aa38}\index{ini.c@{ini.c}!HANDLER@{HANDLER}}
+\index{HANDLER@{HANDLER}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{HANDLER}{HANDLER}}
+{\footnotesize\ttfamily \label{ini_8c_a444c6b3051cdd942c99ba2e0fea3aa38} 
+\+\#define HANDLER(\begin{DoxyParamCaption}\item[{}]{u}{, }\item[{}]{s}{, }\item[{}]{n}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{handler(u,\ s,\ n,\ v)}
+
+\end{DoxyCode}
+\Hypertarget{ini_8c_ac7c0207aa5a0e10d378be03b68041350}\index{ini.c@{ini.c}!MAX\_NAME@{MAX\_NAME}}
+\index{MAX\_NAME@{MAX\_NAME}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_NAME}{MAX\_NAME}}
+{\footnotesize\ttfamily \label{ini_8c_ac7c0207aa5a0e10d378be03b68041350} 
+\+\#define MAX\+\_\+\+NAME~50}
+
+\Hypertarget{ini_8c_aaf452164719d4d290a4766282df9d690}\index{ini.c@{ini.c}!MAX\_SECTION@{MAX\_SECTION}}
+\index{MAX\_SECTION@{MAX\_SECTION}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_SECTION}{MAX\_SECTION}}
+{\footnotesize\ttfamily \label{ini_8c_aaf452164719d4d290a4766282df9d690} 
+\+\#define MAX\+\_\+\+SECTION~50}
+
+
+
+\label{ini_8c_doc-func-members}
+\Hypertarget{ini_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ini_8c_a2fab292681265b7774e2a2885abb758c}\index{ini.c@{ini.c}!ini\_parse@{ini\_parse}}
+\index{ini\_parse@{ini\_parse}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{ini\_parse()}{ini\_parse()}}
+{\footnotesize\ttfamily \label{ini_8c_a2fab292681265b7774e2a2885abb758c} 
+int ini\+\_\+parse (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8c_a876bf8b62ade275320db827b929f9289}\index{ini.c@{ini.c}!ini\_parse\_file@{ini\_parse\_file}}
+\index{ini\_parse\_file@{ini\_parse\_file}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_file()}{ini\_parse\_file()}}
+{\footnotesize\ttfamily \label{ini_8c_a876bf8b62ade275320db827b929f9289} 
+int ini\+\_\+parse\+\_\+file (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8c_ad8b766ac18397b0b262559203ea7f602}\index{ini.c@{ini.c}!ini\_parse\_stream@{ini\_parse\_stream}}
+\index{ini\_parse\_stream@{ini\_parse\_stream}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_stream()}{ini\_parse\_stream()}}
+{\footnotesize\ttfamily \label{ini_8c_ad8b766ac18397b0b262559203ea7f602} 
+int ini\+\_\+parse\+\_\+stream (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab}{ini\+\_\+reader}}}]{reader}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{stream}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8c_aeb90a0b5e4226351899d28ead4eed6fa}\index{ini.c@{ini.c}!ini\_parse\_string@{ini\_parse\_string}}
+\index{ini\_parse\_string@{ini\_parse\_string}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_string()}{ini\_parse\_string()}}
+{\footnotesize\ttfamily \label{ini_8c_aeb90a0b5e4226351899d28ead4eed6fa} 
+int ini\+\_\+parse\+\_\+string (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ini_8c_a01ec9e2ebce98c43937108fc18b10301}\index{ini.c@{ini.c}!ini\_parse\_string\_length@{ini\_parse\_string\_length}}
+\index{ini\_parse\_string\_length@{ini\_parse\_string\_length}!ini.c@{ini.c}}
+\doxysubsubsection{\texorpdfstring{ini\_parse\_string\_length()}{ini\_parse\_string\_length()}}
+{\footnotesize\ttfamily \label{ini_8c_a01ec9e2ebce98c43937108fc18b10301} 
+int ini\+\_\+parse\+\_\+string\+\_\+length (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{size\+\_\+t}]{length}{, }\item[{\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\+\_\+handler}}}]{handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{user}{}\end{DoxyParamCaption})}
+

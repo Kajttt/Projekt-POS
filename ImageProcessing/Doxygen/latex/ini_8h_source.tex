@@ -1,0 +1,195 @@
+\doxysection{ini.\+h}
+\hypertarget{ini_8h_source}{}\label{ini_8h_source}\index{D:/POS/ImageProcessing/ImageProcessing/IniReader/ini.h@{D:/POS/ImageProcessing/ImageProcessing/IniReader/ini.h}}
+\doxymbox{\hyperlink{ini_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ inih\ -\/-\/\ simple\ .INI\ file\ parser}}
+\DoxyCodeLine{00002\ \textcolor{comment}{}}
+\DoxyCodeLine{00003\ \textcolor{comment}{SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{Copyright\ (C)\ 2009-\/2025,\ Ben\ Hoyt}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{inih\ is\ released\ under\ the\ New\ BSD\ license\ (see\ LICENSE.txt).\ Go\ to\ the\ project}}
+\DoxyCodeLine{00008\ \textcolor{comment}{home\ page\ for\ more\ info:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{https://github.com/benhoyt/inih}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ INI\_H}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ INI\_H}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ Make\ this\ header\ file\ easier\ to\ include\ in\ C++\ code\ */}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*\ Nonzero\ if\ ini\_handler\ callback\ should\ accept\ lineno\ parameter.\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ INI\_HANDLER\_LINENO}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ INI\_HANDLER\_LINENO\ 0}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ Visibility\ symbols,\ required\ for\ Windows\ DLLs\ */}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ INI\_API}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#if\ defined\ \_WIN32\ ||\ defined\ \_\_CYGWIN\_\_}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#\ \ \ ifdef\ INI\_SHARED\_LIB}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ ifdef\ INI\_SHARED\_LIB\_BUILDING}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ \ \ \ \ define\ INI\_API\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ else}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ \ \ \ \ define\ INI\_API\ \_\_declspec(dllimport)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ \ else}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ INI\_API}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#\ \ \ if\ defined(\_\_GNUC\_\_)\ \&\&\ \_\_GNUC\_\_\ >=\ 4}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ INI\_API\ \_\_attribute\_\_\ ((visibility\ ("{}default"{})))}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ \ \ else}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#\ \ \ \ \ \ \ define\ INI\_API}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{/*\ Typedef\ for\ prototype\ of\ handler\ function.}}
+\DoxyCodeLine{00051\ \textcolor{comment}{}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ Note\ that\ even\ though\ the\ value\ parameter\ has\ type\ "{}const\ char*"{},\ the\ user}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ may\ cast\ to\ "{}char*"{}\ and\ modify\ its\ content,\ as\ the\ value\ is\ not\ used\ again}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ after\ the\ call\ to\ ini\_handler.\ This\ is\ not\ true\ of\ section\ and\ name\ -\/-\/}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ those\ must\ not\ be\ modified.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#if\ INI\_HANDLER\_LINENO}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{typedef}\ int\ (*\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\_handler}})(\textcolor{keywordtype}{void}*\ user,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ section,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ value,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ lineno);}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ int\ (*\doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\_handler}})(\textcolor{keywordtype}{void}*\ user,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ section,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ value);}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ Typedef\ for\ prototype\ of\ fgets-\/style\ reader\ function.\ */}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{char}*\ (*ini\_reader)(\textcolor{keywordtype}{char}*\ str,\ \textcolor{keywordtype}{int}\ num,\ \textcolor{keywordtype}{void}*\ stream);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ Parse\ given\ INI-\/style\ file.\ May\ have\ [section]s,\ name=value\ pairs}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ (whitespace\ stripped),\ and\ comments\ starting\ with\ ';'\ (semicolon).\ Section}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ is\ "{}"{}\ if\ name=value\ pair\ parsed\ before\ any\ section\ heading.\ name:value}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ pairs\ are\ also\ supported\ as\ a\ concession\ to\ Python's\ configparser.}}
+\DoxyCodeLine{00073\ \textcolor{comment}{}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ For\ each\ name=value\ pair\ parsed,\ call\ handler\ function\ with\ given\ user}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ pointer\ as\ well\ as\ section,\ name,\ and\ value\ (data\ only\ valid\ for\ duration}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ of\ handler\ call).\ Handler\ should\ return\ nonzero\ on\ success,\ zero\ on\ error.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ \ Returns\ 0\ on\ success,\ line\ number\ of\ first\ error\ on\ parse\ error\ (doesn't}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ stop\ on\ first\ error),\ -\/1\ on\ file\ open\ error,\ or\ -\/2\ on\ memory\ allocation}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ error\ (only\ when\ INI\_USE\_STACK\ is\ zero).}}
+\DoxyCodeLine{00081\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00082\ \doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\_API}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{ini_8h_adc6bd549113c458cfb7ca51d9590c222}{ini\_parse}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ filename,\ \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\_handler}}\ handler,\ \textcolor{keywordtype}{void}*\ user);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*\ Same\ as\ ini\_parse(),\ but\ takes\ a\ FILE*\ instead\ of\ filename.\ This\ doesn't}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ close\ the\ file\ when\ it's\ finished\ -\/-\/\ the\ caller\ must\ do\ that.\ */}}
+\DoxyCodeLine{00086\ \doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\_API}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{ini_8h_ab342d928128ec27efdf5d597a793688e}{ini\_parse\_file}}(FILE*\ file,\ \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\_handler}}\ handler,\ \textcolor{keywordtype}{void}*\ user);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{/*\ Same\ as\ ini\_parse(),\ but\ takes\ an\ ini\_reader\ function\ pointer\ instead\ of}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ filename.\ Used\ for\ implementing\ custom\ or\ string-\/based\ I/O\ (see\ also}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ ini\_parse\_string).\ */}}
+\DoxyCodeLine{00091\ \doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\_API}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{ini_8h_a443b481927eadbc1939a567a0439b95b}{ini\_parse\_stream}}(\doxymbox{\hyperlink{ini_8h_a25eedf39f6c0689a517df8d4b512c4ab}{ini\_reader}}\ reader,\ \textcolor{keywordtype}{void}*\ stream,\ \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\_handler}}\ handler,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ user);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ Same\ as\ ini\_parse(),\ but\ takes\ a\ zero-\/terminated\ string\ with\ the\ INI\ data}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ \ instead\ of\ a\ file.\ Useful\ for\ parsing\ INI\ data\ from\ a\ network\ socket\ or}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ \ \ which\ is\ already\ in\ memory.\ */}}
+\DoxyCodeLine{00097\ \doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\_API}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{ini_8h_a74f4769cbc69ed7b32c1e3c488923c91}{ini\_parse\_string}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{string},\ \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\_handler}}\ handler,\ \textcolor{keywordtype}{void}*\ user);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{comment}{/*\ Same\ as\ ini\_parse\_string(),\ but\ takes\ a\ string\ and\ its\ length,\ avoiding}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ \ \ strlen().\ Useful\ for\ parsing\ INI\ data\ from\ a\ network\ socket\ or\ which\ is}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ \ already\ in\ memory,\ or\ interfacing\ with\ C++\ std::string\_view.\ */}}
+\DoxyCodeLine{00102\ \doxymbox{\hyperlink{ini_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\_API}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{ini_8h_aa8e84569ac722c3a9aa8dad66ba53bee}{ini\_parse\_string\_length}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{string},\ \textcolor{keywordtype}{size\_t}\ length,\ \doxymbox{\hyperlink{ini_8h_a7343d087975289e095471430150dbe59}{ini\_handler}}\ handler,\ \textcolor{keywordtype}{void}*\ user);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{/*\ Nonzero\ to\ allow\ multi-\/line\ value\ parsing,\ in\ the\ style\ of\ Python's}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ configparser.\ If\ allowed,\ ini\_parse()\ will\ call\ the\ handler\ with\ the\ same}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ name\ for\ each\ subsequent\ line\ parsed.\ */}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifndef\ INI\_ALLOW\_MULTILINE}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ INI\_ALLOW\_MULTILINE\ 1}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*\ Nonzero\ to\ allow\ a\ UTF-\/8\ BOM\ sequence\ (0xEF\ 0xBB\ 0xBF)\ at\ the\ start\ of}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ the\ file.\ See\ https://github.com/benhoyt/inih/issues/21\ */}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#ifndef\ INI\_ALLOW\_BOM}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ INI\_ALLOW\_BOM\ 1}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{/*\ Chars\ that\ begin\ a\ start-\/of-\/line\ comment.\ Per\ Python\ configparser,\ allow}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ both\ ;\ and\ \#\ comments\ at\ the\ start\ of\ a\ line\ by\ default.\ */}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#ifndef\ INI\_START\_COMMENT\_PREFIXES}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ INI\_START\_COMMENT\_PREFIXES\ "{};\#"{}}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{/*\ Nonzero\ to\ allow\ inline\ comments\ (with\ valid\ inline\ comment\ characters}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ specified\ by\ INI\_INLINE\_COMMENT\_PREFIXES).\ Set\ to\ 0\ to\ turn\ off\ and\ match}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ Python\ 3.2+\ configparser\ behaviour.\ */}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#ifndef\ INI\_ALLOW\_INLINE\_COMMENTS}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ INI\_ALLOW\_INLINE\_COMMENTS\ 1}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#ifndef\ INI\_INLINE\_COMMENT\_PREFIXES}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ INI\_INLINE\_COMMENT\_PREFIXES\ "{};"{}}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{/*\ Nonzero\ to\ use\ stack\ for\ line\ buffer,\ zero\ to\ use\ heap\ (malloc/free).\ */}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#ifndef\ INI\_USE\_STACK}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ INI\_USE\_STACK\ 1}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{/*\ Maximum\ line\ length\ for\ any\ line\ in\ INI\ file\ (stack\ or\ heap).\ Note\ that}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ this\ must\ be\ 3\ more\ than\ the\ longest\ line\ (due\ to\ '\(\backslash\)r',\ '\(\backslash\)n',\ and\ '\(\backslash\)0').\ */}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#ifndef\ INI\_MAX\_LINE}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ INI\_MAX\_LINE\ 200}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{/*\ Nonzero\ to\ allow\ heap\ line\ buffer\ to\ grow\ via\ realloc(),\ zero\ for\ a}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ \ \ fixed-\/size\ buffer\ of\ INI\_MAX\_LINE\ bytes.\ Only\ applies\ if\ INI\_USE\_STACK\ is}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ \ \ zero.\ */}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#ifndef\ INI\_ALLOW\_REALLOC}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ INI\_ALLOW\_REALLOC\ 0}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{/*\ Initial\ size\ in\ bytes\ for\ heap\ line\ buffer.\ Only\ applies\ if\ INI\_USE\_STACK}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ is\ zero.\ */}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifndef\ INI\_INITIAL\_ALLOC}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ INI\_INITIAL\_ALLOC\ 200}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{comment}{/*\ Stop\ parsing\ on\ first\ error\ (default\ is\ to\ keep\ parsing).\ */}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#ifndef\ INI\_STOP\_ON\_FIRST\_ERROR}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ INI\_STOP\_ON\_FIRST\_ERROR\ 0}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{comment}{/*\ Nonzero\ to\ call\ the\ handler\ at\ the\ start\ of\ each\ new\ section\ (with}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ \ \ name\ and\ value\ NULL).\ Default\ is\ to\ only\ call\ the\ handler\ on}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ each\ name=value\ pair.\ */}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#ifndef\ INI\_CALL\_HANDLER\_ON\_NEW\_SECTION}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ INI\_CALL\_HANDLER\_ON\_NEW\_SECTION\ 0}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{comment}{/*\ Nonzero\ to\ allow\ a\ name\ without\ a\ value\ (no\ '='\ or\ ':'\ on\ the\ line)\ and}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ \ call\ the\ handler\ with\ value\ NULL\ in\ this\ case.\ Default\ is\ to\ treat}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ \ \ no-\/value\ lines\ as\ an\ error.\ */}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#ifndef\ INI\_ALLOW\_NO\_VALUE}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ INI\_ALLOW\_NO\_VALUE\ 0}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{comment}{/*\ Nonzero\ to\ use\ custom\ ini\_malloc,\ ini\_free,\ and\ ini\_realloc\ memory}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ \ \ allocation\ functions\ (INI\_USE\_STACK\ must\ also\ be\ 0).\ These\ functions\ must}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ \ have\ the\ same\ signatures\ as\ malloc/free/realloc\ and\ behave\ in\ a\ similar}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ way.\ ini\_realloc\ is\ only\ needed\ if\ INI\_ALLOW\_REALLOC\ is\ set.\ */}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#ifndef\ INI\_CUSTOM\_ALLOCATOR}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ INI\_CUSTOM\_ALLOCATOR\ 0}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00186\ \}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INI\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

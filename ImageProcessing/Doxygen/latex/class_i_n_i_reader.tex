@@ -1,0 +1,196 @@
+\doxysection{INIReader Class Reference}
+\hypertarget{class_i_n_i_reader}{}\label{class_i_n_i_reader}\index{INIReader@{INIReader}}
+
+
+{\ttfamily \+\#include $<$INIReader.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} \doxymbox{\hyperlink{class_i_n_i_reader_af216ebde8b6fc3f37a366a5b66476786}{INIReader}} (const std::\+string \&filename)
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} \doxymbox{\hyperlink{class_i_n_i_reader_aa991be1958a5414e4bfcfb692b28d647}{INIReader}} (const char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffer\+\_\+size)
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int \doxymbox{\hyperlink{class_i_n_i_reader_a7527150689e2dbdc7388306c00d5e039}{Parse\+Error}} () const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} std::\+string \doxymbox{\hyperlink{class_i_n_i_reader_a4efcfc10cd15af136df9ab8ce14a689a}{Parse\+Error\+Message}} () const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} std::\+string \doxymbox{\hyperlink{class_i_n_i_reader_a444ab67be741a41dcd26759d744b20db}{Get}} (const std::\+string \&section, const std::\+string \&name, const std::\+string \&default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} std::\+string \doxymbox{\hyperlink{class_i_n_i_reader_a37db13b6a4db6c095a515e77ee5b932b}{Get\+String}} (const std::\+string \&section, const std::\+string \&name, const std::\+string \&default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} long \doxymbox{\hyperlink{class_i_n_i_reader_a37ef1f422f1a5cb43bf63d82f4ea112f}{Get\+Integer}} (const std::\+string \&section, const std::\+string \&name, long default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int64\+\_\+t \doxymbox{\hyperlink{class_i_n_i_reader_ae15fc2bf2cc8bb98066356b8654e3bee}{Get\+Integer64}} (const std::\+string \&section, const std::\+string \&name, int64\+\_\+t default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} unsigned long \doxymbox{\hyperlink{class_i_n_i_reader_a501e06eacb953a5f99f1acb46c965869}{Get\+Unsigned}} (const std::\+string \&section, const std::\+string \&name, unsigned long default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} uint64\+\_\+t \doxymbox{\hyperlink{class_i_n_i_reader_aa521d5d82a367dc1431d309da02a2b57}{Get\+Unsigned64}} (const std::\+string \&section, const std::\+string \&name, uint64\+\_\+t default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} double \doxymbox{\hyperlink{class_i_n_i_reader_a0a41e06f215552e5d7217a0abc5c214f}{Get\+Real}} (const std::\+string \&section, const std::\+string \&name, double default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} bool \doxymbox{\hyperlink{class_i_n_i_reader_a6fcbb2ebdfad098e34a14f2144f711f7}{Get\+Boolean}} (const std::\+string \&section, const std::\+string \&name, bool default\+\_\+value) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} std::\+vector$<$ std::\+string $>$ \doxymbox{\hyperlink{class_i_n_i_reader_a4218fc68a6ebb1c472ea67a0d57f591e}{Sections}} () const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} std::\+vector$<$ std::\+string $>$ \doxymbox{\hyperlink{class_i_n_i_reader_ac2fb0a1e561a8d07b69ee700e8076b5c}{Keys}} (const std::\+string \&section) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} bool \doxymbox{\hyperlink{class_i_n_i_reader_adc5d42287a7be0f441762c14016db98f}{Has\+Section}} (const std::\+string \&section) const
+\item 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} bool \doxymbox{\hyperlink{class_i_n_i_reader_aea82a4895f899ed71826653b30568b89}{Has\+Value}} (const std::\+string \&section, const std::\+string \&name) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std::\+string \doxymbox{\hyperlink{class_i_n_i_reader_a29eb47ac6f75322fb729926cd058fef3}{Make\+Key}} (const std::\+string \&section, const std::\+string \&name)
+\item 
+static int \doxymbox{\hyperlink{class_i_n_i_reader_a38e5a02b9eab882f23401a4b5a0c42a3}{Value\+Handler}} (void \texorpdfstring{$\ast$}{*}user, const char \texorpdfstring{$\ast$}{*}section, const char \texorpdfstring{$\ast$}{*}name, const char \texorpdfstring{$\ast$}{*}value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{class_i_n_i_reader_a964b63d6d630cde92a998cfb4986b223}{\+\_\+error}}
+\item 
+std::\+map$<$ std::\+string, std::\+string $>$ \doxymbox{\hyperlink{class_i_n_i_reader_ae48a98ecb0d35c2ea3066dac63a731bd}{\+\_\+values}}
+\end{DoxyCompactItemize}
+
+
+\label{class_i_n_i_reader_doc-constructors}
+\Hypertarget{class_i_n_i_reader_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_i_n_i_reader_af216ebde8b6fc3f37a366a5b66476786}\index{INIReader@{INIReader}!INIReader@{INIReader}}
+\index{INIReader@{INIReader}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{INIReader()}{INIReader()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_af216ebde8b6fc3f37a366a5b66476786} 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} INIReader::\+\+INIReader (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{filename}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\Hypertarget{class_i_n_i_reader_aa991be1958a5414e4bfcfb692b28d647}\index{INIReader@{INIReader}!INIReader@{INIReader}}
+\index{INIReader@{INIReader}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{INIReader()}{INIReader()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_aa991be1958a5414e4bfcfb692b28d647} 
+INIReader::\+\+INIReader (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{buffer\+\_\+size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\label{class_i_n_i_reader_doc-func-members}
+\Hypertarget{class_i_n_i_reader_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_i_n_i_reader_a444ab67be741a41dcd26759d744b20db}\index{INIReader@{INIReader}!Get@{Get}}
+\index{Get@{Get}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{Get()}{Get()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a444ab67be741a41dcd26759d744b20db} 
+string INIReader::\+\+Get (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{const std::\+string \&}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a6fcbb2ebdfad098e34a14f2144f711f7}\index{INIReader@{INIReader}!GetBoolean@{GetBoolean}}
+\index{GetBoolean@{GetBoolean}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{GetBoolean()}{GetBoolean()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a6fcbb2ebdfad098e34a14f2144f711f7} 
+bool INIReader::\+\+Get\+Boolean (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{bool}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a37ef1f422f1a5cb43bf63d82f4ea112f}\index{INIReader@{INIReader}!GetInteger@{GetInteger}}
+\index{GetInteger@{GetInteger}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{GetInteger()}{GetInteger()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a37ef1f422f1a5cb43bf63d82f4ea112f} 
+long INIReader::\+\+Get\+Integer (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{long}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_ae15fc2bf2cc8bb98066356b8654e3bee}\index{INIReader@{INIReader}!GetInteger64@{GetInteger64}}
+\index{GetInteger64@{GetInteger64}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{GetInteger64()}{GetInteger64()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_ae15fc2bf2cc8bb98066356b8654e3bee} 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} int64\+\_\+t INIReader::\+\+Get\+Integer64 (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{int64\+\_\+t}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a0a41e06f215552e5d7217a0abc5c214f}\index{INIReader@{INIReader}!GetReal@{GetReal}}
+\index{GetReal@{GetReal}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{GetReal()}{GetReal()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a0a41e06f215552e5d7217a0abc5c214f} 
+double INIReader::\+\+Get\+Real (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{double}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a37db13b6a4db6c095a515e77ee5b932b}\index{INIReader@{INIReader}!GetString@{GetString}}
+\index{GetString@{GetString}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{GetString()}{GetString()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a37db13b6a4db6c095a515e77ee5b932b} 
+string INIReader::\+\+Get\+String (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{const std::\+string \&}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a501e06eacb953a5f99f1acb46c965869}\index{INIReader@{INIReader}!GetUnsigned@{GetUnsigned}}
+\index{GetUnsigned@{GetUnsigned}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{GetUnsigned()}{GetUnsigned()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a501e06eacb953a5f99f1acb46c965869} 
+unsigned long INIReader::\+\+Get\+Unsigned (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{unsigned long}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_aa521d5d82a367dc1431d309da02a2b57}\index{INIReader@{INIReader}!GetUnsigned64@{GetUnsigned64}}
+\index{GetUnsigned64@{GetUnsigned64}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{GetUnsigned64()}{GetUnsigned64()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_aa521d5d82a367dc1431d309da02a2b57} 
+\doxymbox{\hyperlink{_i_n_i_reader_8h_a100f9833a46f9c2b9dac0247876eb71b}{INI\+\_\+\+API}} uint64\+\_\+t INIReader::\+\+Get\+Unsigned64 (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{, }\item[{uint64\+\_\+t}]{default\+\_\+value}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_adc5d42287a7be0f441762c14016db98f}\index{INIReader@{INIReader}!HasSection@{HasSection}}
+\index{HasSection@{HasSection}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{HasSection()}{HasSection()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_adc5d42287a7be0f441762c14016db98f} 
+bool INIReader::\+\+Has\+Section (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_aea82a4895f899ed71826653b30568b89}\index{INIReader@{INIReader}!HasValue@{HasValue}}
+\index{HasValue@{HasValue}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{HasValue()}{HasValue()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_aea82a4895f899ed71826653b30568b89} 
+bool INIReader::\+\+Has\+Value (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_ac2fb0a1e561a8d07b69ee700e8076b5c}\index{INIReader@{INIReader}!Keys@{Keys}}
+\index{Keys@{Keys}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{Keys()}{Keys()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_ac2fb0a1e561a8d07b69ee700e8076b5c} 
+std::\+vector$<$ string $>$ INIReader::\+\+Keys (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a29eb47ac6f75322fb729926cd058fef3}\index{INIReader@{INIReader}!MakeKey@{MakeKey}}
+\index{MakeKey@{MakeKey}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{MakeKey()}{MakeKey()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a29eb47ac6f75322fb729926cd058fef3} 
+string INIReader::\+\+Make\+Key (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{section}{, }\item[{const std::\+string \&}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\Hypertarget{class_i_n_i_reader_a7527150689e2dbdc7388306c00d5e039}\index{INIReader@{INIReader}!ParseError@{ParseError}}
+\index{ParseError@{ParseError}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{ParseError()}{ParseError()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a7527150689e2dbdc7388306c00d5e039} 
+int INIReader::\+\+Parse\+Error (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a4efcfc10cd15af136df9ab8ce14a689a}\index{INIReader@{INIReader}!ParseErrorMessage@{ParseErrorMessage}}
+\index{ParseErrorMessage@{ParseErrorMessage}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{ParseErrorMessage()}{ParseErrorMessage()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a4efcfc10cd15af136df9ab8ce14a689a} 
+string INIReader::\+\+Parse\+Error\+Message (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a4218fc68a6ebb1c472ea67a0d57f591e}\index{INIReader@{INIReader}!Sections@{Sections}}
+\index{Sections@{Sections}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{Sections()}{Sections()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a4218fc68a6ebb1c472ea67a0d57f591e} 
+std::\+vector$<$ string $>$ INIReader::\+\+Sections (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_i_n_i_reader_a38e5a02b9eab882f23401a4b5a0c42a3}\index{INIReader@{INIReader}!ValueHandler@{ValueHandler}}
+\index{ValueHandler@{ValueHandler}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{ValueHandler()}{ValueHandler()}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a38e5a02b9eab882f23401a4b5a0c42a3} 
+int INIReader::\+\+Value\+Handler (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{user}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{section}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+\label{class_i_n_i_reader_doc-variable-members}
+\Hypertarget{class_i_n_i_reader_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_i_n_i_reader_a964b63d6d630cde92a998cfb4986b223}\index{INIReader@{INIReader}!\_error@{\_error}}
+\index{\_error@{\_error}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{\_error}{\_error}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_a964b63d6d630cde92a998cfb4986b223} 
+int INIReader::\+\+\_\+error\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_i_n_i_reader_ae48a98ecb0d35c2ea3066dac63a731bd}\index{INIReader@{INIReader}!\_values@{\_values}}
+\index{\_values@{\_values}!INIReader@{INIReader}}
+\doxysubsubsection{\texorpdfstring{\_values}{\_values}}
+{\footnotesize\ttfamily \label{class_i_n_i_reader_ae48a98ecb0d35c2ea3066dac63a731bd} 
+std::\+map$<$std::\+string, std::\+string$>$ INIReader::\+\+\_\+values\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+D:\+/\+\+POS/\+\+Image\+Processing/\+\+Image\+Processing/\+\+Ini\+Reader/\+\doxymbox{\hyperlink{_i_n_i_reader_8h}{INIReader.\+h}}\item 
+D:\+/\+\+POS/\+\+Image\+Processing/\+\+Image\+Processing/\+\+Ini\+Reader/\+\doxymbox{\hyperlink{_i_n_i_reader_8cpp}{INIReader.\+cpp}}\end{DoxyCompactItemize}
